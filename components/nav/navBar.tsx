@@ -5,7 +5,7 @@ export default function NavBar() {
     <nav className="flex items-center justify-between w-full p-4 bg-gray-800 text-white">
       <div className="flex w-fit h-full">
         {" "}
-        <h1 className="text-2xl font-bold">My App</h1>
+        <h1 className="text-2xl font-bold">Monster Fight</h1>
       </div>
       <div className="flex w-fit h-full">
         <Button variant={"ghost"}>reset</Button>
