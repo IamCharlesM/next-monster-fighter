@@ -2,28 +2,34 @@
 
 import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
-import { useEffect } from "react";
 
 interface CombatantProps {
   type: string;
+  attack?: () => void;
+  defend?: () => void;
+  heal?: () => void;
+  health?: number;
 }
 
-export default function Combatant({ type }: CombatantProps) {
-  console.log(type);
+export default function Combatant({
+  type,
+  attack,
+  defend,
+  heal,
+  health,
+}: CombatantProps) {
+  const handleAttack = attack;
+  const handleDefend = defend;
+  const handleHeal = heal;
 
-  function handleAttack() {
-    console.log(` ${type} is Attacking`);
-  }
-  function handleDefend() {
-    console.log(` ${type} is defending`);
-  }
-  function handleHeal() {
-    console.log(` ${type} is healing`);
-  }
   return (
-    <div className="flex flex-col items-center justify-center w-1/2 space-y-6 h-full p-4 bg-gray-200">
+    <div className="flex flex-col items-center justify-center w-1/2 space-y-6 p-4 bg-gray-200 min-h-fit">
       <p>{type}</p>
-      <Progress value={100} />
+      <div className="flex flex-col w-full">
+        <Progress value={health} />
+        <p>{health}/100 </p>
+      </div>
+
       {type == "player" ? (
         <div className="flex flex-row justify-evenly w-full">
           <Button onClick={handleAttack}>Attack</Button>
@@ -34,7 +40,17 @@ export default function Combatant({ type }: CombatantProps) {
             Heal
           </Button>
         </div>
-      ) : null}
+      ) : (
+        <div className="flex flex-row justify-evenly w-full invisible">
+          <Button onClick={handleAttack}>Attack</Button>
+          <Button variant={"ghost"} onClick={handleDefend}>
+            Defend
+          </Button>
+          <Button variant={"secondary"} onClick={handleHeal}>
+            Heal
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
