@@ -1,5 +1,6 @@
 "use client";
 import Combatant from "@/components/combatant/combatant";
+import CombatLog from "@/components/logs/combatLog";
 import { useState } from "react";
 
 export default function Home() {
@@ -45,15 +46,20 @@ export default function Home() {
   }
 
   return (
-    <main className="flex h-[calc(100vh-128px)] flex-row items-center justify-between p-24">
-      <Combatant
-        type="player"
-        attack={handleAttack}
-        defend={handleDefend}
-        heal={handleHeal}
-        health={userHealth}
-      />
-      <Combatant type="monster" health={monsterHealth} />
+    <main className="flex h-[calc(100vh-128px)] flex-col  p-24 max-w-7xl space-y-6 mx-auto">
+      <div className="flex flex-row items-center justify-between h-fit w-full space-x-8">
+        <Combatant
+          type="player"
+          attack={handleAttack}
+          defend={handleDefend}
+          heal={handleHeal}
+          health={userHealth}
+        />
+        <Combatant type="monster" health={monsterHealth} />
+      </div>
+      <div className="flex h-3/4 w-full overflow-clip">
+        <CombatLog />
+      </div>
     </main>
   );
 }
