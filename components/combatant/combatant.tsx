@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
 
@@ -30,27 +31,21 @@ export default function Combatant({
         <p>{health}/100 </p>
       </div>
 
-      {type == "player" ? (
-        <div className="flex flex-row justify-evenly w-full">
-          <Button onClick={handleAttack}>Attack</Button>
-          <Button variant={"ghost"} onClick={handleDefend}>
-            Defend
-          </Button>
-          <Button variant={"secondary"} onClick={handleHeal}>
-            Heal
-          </Button>
-        </div>
-      ) : (
-        <div className="flex flex-row justify-evenly w-full invisible">
-          <Button onClick={handleAttack}>Attack</Button>
-          <Button variant={"ghost"} onClick={handleDefend}>
-            Defend
-          </Button>
-          <Button variant={"secondary"} onClick={handleHeal}>
-            Heal
-          </Button>
-        </div>
-      )}
+      <div
+        className={cn(
+          `flex flex-row justify-evenly w-full ${
+            type == "monster" ? "invisible" : ""
+          }`
+        )}
+      >
+        <Button onClick={handleAttack}>Attack</Button>
+        <Button variant={"ghost"} onClick={handleDefend}>
+          Defend
+        </Button>
+        <Button variant={"secondary"} onClick={handleHeal}>
+          Heal
+        </Button>
+      </div>
     </div>
   );
 }
