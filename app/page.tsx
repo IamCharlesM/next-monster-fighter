@@ -6,6 +6,7 @@ import { useState } from "react";
 export default function Home() {
   const [userHealth, setUserHealth] = useState(100);
   const [monsterHealth, setMonsterHealth] = useState(100);
+  const combatLog = [];
 
   function determineDamage() {
     const damage = Math.floor(Math.random() * 10) + 1;
@@ -22,7 +23,19 @@ export default function Home() {
 
   function handleAttack() {
     setMonsterHealth(monsterHealth - determineDamage());
+    combatLog.push({
+      name: "Player",
+      action: "Attack",
+      damage: determineDamage(),
+    });
     setUserHealth(userHealth - determineDamage());
+    combatLog.push({
+      name: "Monster",
+      action: "Attack",
+      damage: determineDamage(),
+    });
+
+    console.log(combatLog);
   }
 
   function handleDefend() {
@@ -37,9 +50,19 @@ export default function Home() {
       console.log(`this is the user health: ${userHealth}`);
       updatedHealth = userHealth + determineHeal() - determineDamage();
       setUserHealth(updatedHealth);
+      combatLog.push({
+        name: "Player",
+        action: "Heal",
+        heal: healAmount,
+      });
     } else if (userHealth + healAmount > 100 && userHealth != 100) {
       healToMax = 100 - userHealth;
       setUserHealth(userHealth + healToMax);
+      combatLog.push({
+        name: "Player",
+        action: "Heal",
+        heal: healToMax,
+      });
     } else {
       alert("Health is full");
     }
@@ -58,7 +81,7 @@ export default function Home() {
         <Combatant type="monster" health={monsterHealth} />
       </div>
       <div className="flex h-3/4 w-full overflow-clip">
-        <CombatLog />
+        <CombatLog combatLog={combatLog} />
       </div>
     </main>
   );

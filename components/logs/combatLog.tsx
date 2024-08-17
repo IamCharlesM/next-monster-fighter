@@ -2,147 +2,21 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface CombatLogProps {
-  name: string;
-  action: string;
-  damage?: number;
-  heal?: number;
+  combatLog: {
+    name: string;
+    action: string;
+    damage?: number;
+    heal?: number;
+  }[];
 }
 
-export default function CombatLog({
-  name,
-  action,
-  damage,
-  heal,
-}: CombatLogProps) {
-  const data = [
-    {
-      name: "Player",
-      action: "Attack",
-      damage: 10,
-    },
-    {
-      name: "Monster",
-      action: "Attack",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Defend",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Heal",
-      heal: 10,
-    },
-    {
-      name: "Player",
-      action: "Attack",
-      damage: 10,
-    },
-    {
-      name: "Monster",
-      action: "Attack",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Defend",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Heal",
-      heal: 10,
-    },
-    {
-      name: "Player",
-      action: "Attack",
-      damage: 10,
-    },
-    {
-      name: "Monster",
-      action: "Attack",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Defend",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Heal",
-      heal: 10,
-    },
-    {
-      name: "Player",
-      action: "Attack",
-      damage: 10,
-    },
-    {
-      name: "Monster",
-      action: "Attack",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Defend",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Heal",
-      heal: 10,
-    },
-    {
-      name: "Player",
-      action: "Attack",
-      damage: 10,
-    },
-    {
-      name: "Monster",
-      action: "Attack",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Defend",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Heal",
-      heal: 10,
-    },
-    {
-      name: "Player",
-      action: "Attack",
-      damage: 10,
-    },
-    {
-      name: "Monster",
-      action: "Attack",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Defend",
-      damage: 5,
-    },
-    {
-      name: "Player",
-      action: "Heal",
-      heal: 10,
-    },
-  ];
+export default function CombatLog({ combatLog }: CombatLogProps) {
   return (
     <>
       <Card className=" w-full h-full">
@@ -150,7 +24,7 @@ export default function CombatLog({
           <CardTitle>Combat Log</CardTitle>
         </CardHeader>
         <CardContent className="h-full overflow-y-scroll pb-24 ">
-          {data.map((log, index) => {
+          {combatLog.map((log, index) => {
             return (
               <div
                 key={index}
