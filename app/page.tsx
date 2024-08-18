@@ -3,10 +3,23 @@ import Combatant from "@/components/combatant/combatant";
 import CombatLog from "@/components/logs/combatLog";
 import { useState } from "react";
 
+interface CombatLogEntry {
+  name: string;
+  action: string;
+  damage?: number | undefined;
+  heal?: number | undefined;
+}
+
 export default function Home() {
   const [userHealth, setUserHealth] = useState(100);
   const [monsterHealth, setMonsterHealth] = useState(100);
-  const combatLog = [];
+  const [combatLog, setCombatLog] = useState<CombatLogEntry[]>([]);
+
+  function resetGame() {
+    setUserHealth(100);
+    setMonsterHealth(100);
+    setCombatLog([]);
+  }
 
   function determineDamage() {
     const damage = Math.floor(Math.random() * 10) + 1;
@@ -22,20 +35,19 @@ export default function Home() {
   }
 
   function handleAttack() {
-    setMonsterHealth(monsterHealth - determineDamage());
-    combatLog.push({
-      name: "Player",
-      action: "Attack",
-      damage: determineDamage(),
-    });
-    setUserHealth(userHealth - determineDamage());
-    combatLog.push({
-      name: "Monster",
-      action: "Attack",
-      damage: determineDamage(),
-    });
+    const damage = determineDamage();
+    setMonsterHealth(monsterHealth - damage);
+    setCombatLog((prevLog) => [
+      ...prevLog,
+      { name: "Player", action: "Attack", damage: damage },
+    ]);
+    setUserHealth(userHealth - damage);
+    setCombatLog((prevLog) => [
+      ...prevLog,
+      { name: "Monster", action: "Attack", damage: damage },
+    ]);
 
-    console.log(combatLog);
+    console.log(combatLog.length);
   }
 
   function handleDefend() {
@@ -57,7 +69,7 @@ export default function Home() {
       });
     } else if (userHealth + healAmount > 100 && userHealth != 100) {
       healToMax = 100 - userHealth;
-      setUserHealth(userHealth + healToMax);
+      setUserHealth(100);
       combatLog.push({
         name: "Player",
         action: "Heal",
@@ -78,7 +90,10 @@ export default function Home() {
           heal={handleHeal}
           health={userHealth}
         />
-        <Combatant type="monster" health={monsterHealth} />
+        <Combatant
+          type="monster"
+          health={monsterHealth}
+        />
       </div>
       <div className="flex h-3/4 w-full overflow-clip">
         <CombatLog combatLog={combatLog} />

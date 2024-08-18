@@ -11,8 +11,8 @@ interface CombatLogProps {
   combatLog: {
     name: string;
     action: string;
-    damage?: number;
-    heal?: number;
+    damage?: number | undefined;
+    heal?: number | undefined;
   }[];
 }
 
