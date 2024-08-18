@@ -21,6 +21,14 @@ export default function Home() {
     setCombatLog([]);
   }
 
+  function endGame() {
+    if (userHealth <= 0) {
+      alert("You lose");
+    } else if (monsterHealth <= 0) {
+      alert("You win");
+    }
+  }
+
   function determineDamage() {
     const damage = Math.floor(Math.random() * 10) + 1;
     console.log(`this is the damage amount: ${damage}`);
@@ -35,22 +43,28 @@ export default function Home() {
   }
 
   function handleAttack() {
-    const damage = determineDamage();
-    setMonsterHealth(monsterHealth - damage);
-    setCombatLog((prevLog) => [
-      ...prevLog,
-      { name: "Player", action: "Attack", damage: damage },
-    ]);
-    setUserHealth(userHealth - damage);
-    setCombatLog((prevLog) => [
-      ...prevLog,
-      { name: "Monster", action: "Attack", damage: damage },
-    ]);
+    const playerDamage = determineDamage();
+    const monsterDamage = determineDamage();
 
-    console.log(combatLog.length);
+    if (userHealth <= 0 || monsterHealth <= 0) {
+      endGame();
+      return;
+    }
+
+    setMonsterHealth(monsterHealth - playerDamage);
+    setCombatLog((prevLog) => [
+      ...prevLog,
+      { name: "Player", action: "Attack", damage: playerDamage },
+    ]);
+    setUserHealth(userHealth - monsterDamage);
+    setCombatLog((prevLog) => [
+      ...prevLog,
+      { name: "Monster", action: "Attack", damage: monsterDamage },
+    ]);
   }
 
   function handleDefend() {
+    endGame();
     setUserHealth(userHealth - 5);
   }
 
