@@ -1,0 +1,18 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "main",
+    "origin",
+    "security/remove-polinrider-2026-10-12"
+  ],
+  "parent": {
+    "main": null,
+    "origin": "main",
+    "security/remove-polinrider-2026-10-12": "main"
+  },
+  "order": [
+    "main",
+    "origin",
+    "security/remove-polinrider-2026-10-12"
+  ]
+}
